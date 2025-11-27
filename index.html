@@ -1,0 +1,97 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Palindrome Checker</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 2rem; display: grid; place-items: start center; background: #0b1b2b; color: #e6edf3; }
+    .card { width: min(680px, 100%); background: #12243a; border: 1px solid #1f3a57; border-radius: 12px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+    h1 { margin: 0 0 .75rem; font-size: 1.5rem; }
+    p { margin: .25rem 0 1rem; opacity: .85; }
+    .row { display: flex; gap: .75rem; }
+    input[type="text"] { flex: 1; padding: .75rem .9rem; border-radius: 10px; border: 1px solid #2b4a6d; background: #0e2036; color: inherit; font-size: 1rem; }
+    button { padding: .75rem 1rem; border-radius: 10px; border: 1px solid #2b4a6d; background: #2b4a6d; color: #fff; font-weight: 600; cursor: pointer; }
+    button:hover { filter: brightness(1.1); }
+    .result { margin-top: 1rem; padding: .75rem; border-radius: 10px; border: 1px solid #2b4a6d; background: #0e2036; }
+    .ok { border-color: #2d7a46; background: #0d2516; }
+    .bad { border-color: #a23a3a; background: #2a0f10; }
+    .mirror { margin-top: .5rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; opacity: .9; }
+    .examples { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .chip { padding: .4rem .6rem; border-radius: 999px; border: 1px solid #2b4a6d; cursor: pointer; background: #0e2036; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Palindrome Checker</h1>
+    <p>Type anything. We’ll ignore casing, spaces & punctuation. Try the classics or make your own!</p>
+
+    <div class="row">
+      <input id="text" type="text" placeholder="e.g., A man, a plan, a canal: Panama!" />
+      <button id="checkBtn">Check</button>
+    </div>
+
+    <div id="result" class="result" hidden></div>
+    <div id="mirror" class="mirror" hidden></div>
+
+    <div class="examples">
+      <span class="chip">racecar</span>
+      <span class="chip">No lemon, no melon</span>
+      <span class="chip">Was it a car or a cat I saw?</span>
+      <span class="chip">Never odd or even</span>
+      <span class="chip">Gobble elbbog</span>
+    </div>
+  </div>
+
+  <script>
+    // Normalization: remove non-alphanumerics, lowercase
+    function normalize(s) {
+      return (s || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function isPalindrome(s) {
+      const t = normalize(s);
+      // Fast check by comparing pairs from ends
+      for (let i = 0, j = t.length - 1; i < j; i++, j--) {
+        if (t[i] !== t[j]) return false;
+      }
+      return t.length > 0; // treat empty as "not"
+    }
+
+    function reverseVisible(s) {
+      // Show a mirrored version preserving original spacing/punct for fun
+      return s.split("").reverse().join("");
+    }
+
+    const input = document.getElementById("text");
+    const btn = document.getElementById("checkBtn");
+    const result = document.getElementById("result");
+    const mirror = document.getElementById("mirror");
+
+    function render() {
+      const val = input.value;
+      const palindrome = isPalindrome(val);
+      result.hidden = false;
+      mirror.hidden = false;
+      result.className = "result " + (palindrome ? "ok" : "bad");
+      result.textContent = palindrome ? "✅ It's a palindrome!" : "❌ Not a palindrome.";
+      mirror.textContent = "Mirror: " + reverseVisible(val);
+    }
+
+    btn.addEventListener("click", render);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") render(); });
+
+    // Example chips
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        input.value = chip.textContent;
+        render();
+      });
+    });
+  </script>
+</body>
+</html>
