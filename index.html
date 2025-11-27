@@ -1,22 +1,87 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Palindrome Checker</title>
-<style>
-  body { font-family: Arial, sans-serif; background: #f8f8f8; padding: 2rem; }
-  .container { max-width: 500px; margin: auto; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-  input, button { width: 100%; padding: .75rem; margin-top: .5rem; font-size: 1rem; }
-  button { background: #0078d7; color: #fff; border: none; cursor: pointer; }
-  button:hover { background: #005fa3; }
-  .result { margin-top: 1rem; font-weight: bold; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spreadsheet Viewer</title>
+  <meta name="description" content="Embedded Google Sheets on a GitHub Pages site." />
+  <style>
+    /* Reset & layout */
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #0f172a; /* slate-900 */
+      color: #e5e7eb;      /* gray-200 */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    header {
+      padding: 0.75rem 1rem;
+      background: #111827; /* gray-900 */
+      border-bottom: 1px solid #1f2937; /* gray-800 */
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      font-size: 1rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    .container {
+      height: calc(100vh - 56px); /* full viewport minus header */
+      display: grid;
+      grid-template-rows: 1fr;
+    }
+    /* Responsive iframe wrapper */
+    .iframe-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-top: 1px solid #1f2937;
+    }
+    .iframe-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #ffffff; /* white iframe background to match Sheet */
+    }
+
+    /* Optional: small footer */
+    footer {
+      display: none; /* set to block to show */
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: #9ca3af; /* gray-400 */
+      border-top: 1px solid #1f2937;
+      background: #111827;
+    }
+
+    /* Light mode preference (optional) */
+    @media (prefers-color-scheme: light) {
+      body { background: #f3f4f6; color: #111827; }
+      header { background: #ffffff; border-bottom-color: #e5e7eb; }
+      .iframe-wrap { border-top-color: #e5e7eb; }
+      footer { background: #ffffff; border-top-color: #e5e7eb; color: #4b5563; }
+    }
+  </style>
 </head>
 <body>
-<iframe width="700" height="170" frameborder="0" scrolling="no" src="https://basstoolsupply-my.sharepoint.com/personal/kmcdonald_basstool_com/_layouts/15/Doc.aspx?sourcedoc={8743a943-683a-4664-a582-53697cda7830}&action=embedview&wdAllowInteractivity=False&Item='Sheet1'!A1%3AG7&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+  <header>
+    <h1>Spreadsheet Viewer</h1>
+  </header>
 
-</script>
+  <main class="container">
+    <div class="iframe-wrap" role="region" aria-label="Embedded Google Sheet">
+      <iframe
+        title="Google Sheet"
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSyXWCiWSdeDctOmxpEJV_4pp7EmtQwmV13l88yyKon7fwsO_CMwQtqsConMF7-0A/pubhtml?widget=true&amp;headers=false"
+        loading="lazy"
+       cDonald
+  </footer>
+  -->
 </body>
 </html>
